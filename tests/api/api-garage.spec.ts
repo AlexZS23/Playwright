@@ -1,5 +1,6 @@
 import { test, expect, APIRequestContext } from '@playwright/test';
 
+
 test.describe('Garage API', () => {
 
     async function clearGarage(request: APIRequestContext) {

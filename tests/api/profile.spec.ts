@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 
+
 test.describe('Profile response mock', () => {
 
     test('Profile should display mocked user data', async ({ page }) => {
