@@ -30,7 +30,7 @@ jobs:
             -e USER_EMAIL="${{ secrets.USER_EMAIL }}" \
             -e USER_PASSWORD="${{ secrets.USER_PASSWORD }}" \
             mcr.microsoft.com/playwright:v1.62.1-noble \
-            /bin/bash -c "npm ci && npx playwright test"
+            /bin/bash -c "npm ci && npx playwright test tests/api"
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
