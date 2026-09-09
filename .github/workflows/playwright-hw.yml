@@ -1,0 +1,36 @@
+name: Playwright Tests HomeWork
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Run Playwright tests inside Docker
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/playwright-tests \
+            -w /playwright-tests \
+            -e BASE_URL="${{ secrets.BASE_URL }}" \
+            -e HTTP_USERNAME="${{ secrets.HTTP_USERNAME }}" \
+            -e HTTP_PASSWORD="${{ secrets.HTTP_PASSWORD }}" \
+            -e USER_EMAIL="${{ secrets.USER_EMAIL }}" \
+            -e USER_PASSWORD="${{ secrets.USER_PASSWORD }}" \
+            mcr.microsoft.com/playwright:v1.62.1-noble \
+            /bin/bash -c "npm ci && npx playwright test"
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

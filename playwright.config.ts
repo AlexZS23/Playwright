@@ -38,7 +38,7 @@ export default defineConfig({
       password: process.env.HTTP_PASSWORD!,
     },
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    headless: false,
+    headless: true,
     trace: 'on-first-retry',
   },
 
